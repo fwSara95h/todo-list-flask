@@ -2,6 +2,8 @@
 
 This project demonstrates deploying a simple, basic Todo List application using Python, Flask, and MySQL on Google Kubernetes Engine (GKE). It showcases key cloud computing concepts such as containerization, orchestration, high availability, load balancing, and disaster recovery.
 
+![Screenshot](Screenshot.png)
+
 ## Project Structure
 
 ```graphql
