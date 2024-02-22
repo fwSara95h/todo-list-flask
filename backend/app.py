@@ -4,14 +4,15 @@ import yaml
 import os
 
 # Define the paths to the 'frontend' folder relative to this
-parent_dir = os.path.abspath(os.path.join(os.getcwd(), os.pardir))
-static_folder_path = os.path.join(parent_dir, 'frontend')
+# parent_dir = os.path.abspath(os.path.join(os.getcwd(), os.pardir))
+# static_folder_path = os.path.join(parent_dir, 'frontend')
+static_folder_path = os.path.join(os.getcwd(), 'frontend')
 print("Static folder path:", static_folder_path)
 
 app = Flask(__name__, static_folder=static_folder_path, static_url_path='')
 
 # Load database configuration from db.yaml
-db_config = yaml.load(open('db.yaml'), Loader=yaml.FullLoader)
+db_config = yaml.load(open('backend/db.yaml'), Loader=yaml.FullLoader)
 app.config['MYSQL_HOST'] = db_config['mysql_host']
 app.config['MYSQL_USER'] = db_config['mysql_user']
 app.config['MYSQL_PASSWORD'] = db_config['mysql_password']
