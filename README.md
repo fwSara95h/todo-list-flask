@@ -44,12 +44,12 @@ This project demonstrates deploying a simple, basic Todo List application using 
 
 ### Backend Setup
 
-1. Navigate to the `backend` directory.
-2. Build the Docker image for the Flask application:
+
+1. Build the Docker image for the Flask application:
    ```bash
    docker build -t gcr.io/YOUR_PROJECT_ID/todo-app:latest .
    ```
-3. Push the Docker image to Google Container Registry (GCR):
+2. Push the Docker image to Google Container Registry (GCR):
    ```bash
    docker push gcr.io/YOUR_PROJECT_ID/todo-app:latest
    ```
