@@ -12,7 +12,6 @@ This project demonstrates deploying a simple, basic Todo List application using 
 ├── backend
 │ ├── app.py                # Flask application
 │ ├── requirements.txt      # Python dependencies
-│ ├── Dockerfile            # Dockerfile for Flask app
 │ └── init.sql              # MySQL initialization script
 │
 ├── frontend
@@ -30,6 +29,7 @@ This project demonstrates deploying a simple, basic Todo List application using 
 │ ├── mysql-pv.yaml         # PersistentVolume for MySQL (optional)
 │ └── mysql-pvc.yaml        # PersistentVolumeClaim for MySQL (optional)
 │
+├── Dockerfile              # Dockerfile for Flask app
 └── README.md
 ```
 
