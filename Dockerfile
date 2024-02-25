@@ -15,10 +15,11 @@ RUN apt-get update -y &&\
   apt-get install -y default-libmysqlclient-dev &&\
   pip install --upgrade pip &&\
   pip install -U mysqlclient &&\
-  pip install -U PyMySQL &&\ # pip install -U flask-mysqldb &&\
+  pip install -U PyMySQL &&\
   pip install -U Flask &&\
   pip install -U PyYAML
-
+# pip install -U flask-mysqldb &&\
+ 
 # Set environment variables for Flask
 ENV FLASK_APP=backend/app.py
 ENV FLASK_RUN_HOST=0.0.0.0
