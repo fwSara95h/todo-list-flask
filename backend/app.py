@@ -2,6 +2,11 @@ from flask import Flask, request, jsonify, send_from_directory
 from flask_mysqldb import MySQL
 import yaml
 import os
+import time
+
+# Delay the application startup by 10 seconds to let mysql start up
+time.sleep(10)
+
 
 # Define the paths to the 'frontend' folder relative to this
 # parent_dir = os.path.abspath(os.path.join(os.getcwd(), os.pardir))
@@ -20,6 +25,25 @@ app.config['MYSQL_PASSWORD'] = db_config['mysql_password']
 app.config['MYSQL_DB'] = db_config['mysql_db']
 
 mysql = MySQL(app)
+
+# Multiple attempts to connect
+def connect_to_database(max_attempts=25):
+    attempt_num = 0
+    while attempt_num < max_attempts:
+        attempt_num += 1
+        try:
+            # Try to get a cursor to test the connection
+            with app.app_context():
+                mysql.connection.cursor()
+            print(f"Successfully connected to the database on attempt {attempt_num}.")
+            return
+        except Exception as e:
+            print(f"Attempt {attempt_num} failed with error: {e}")
+            time.sleep(5)  # Wait for 5 seconds before retrying
+
+
+connect_to_database()
+#################
 
 
 @app.route('/')
