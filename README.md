@@ -20,16 +20,11 @@ This project demonstrates deploying a simple, basic Todo List application using 
 │ └── style.css             # Frontend CSS
 │
 ├── k8s
-│ ├── app-deployment.yaml   # Deployment for Flask app
-│ ├── app-service.yaml      # Service for Flask app
-│ ├── nginx-deployment.yaml # Deployment for Nginx (optional)
-│ ├── nginx-service.yaml    # Service for Nginx (optional)
-│ ├── mysql-deployment.yaml # Deployment for MySQL
-│ ├── mysql-service.yaml    # Service for MySQL
-│ ├── mysql-pv.yaml         # PersistentVolume for MySQL (optional)
-│ └── mysql-pvc.yaml        # PersistentVolumeClaim for MySQL (optional)
+│ ├── todo-app-pod.yaml     # pod with flask+nginx+mysql containers
+│ └── todo-app-service.yaml # Service for flask+nginx+mysql app
 │
 ├── Dockerfile              # Dockerfile for Flask app
+├── nginx.conf              # nginx configurations for reverse proxy
 └── README.md
 ```
 
@@ -42,25 +37,35 @@ This project demonstrates deploying a simple, basic Todo List application using 
 
 ## Setup and Deployment
 
-### Backend Setup
+**Don't forget to replace `<YOUR_PROJECT_ID>` in the pod yamls and the shell commands**
 
+```sh
+# Enable APIs
+gcloud services enable container.googleapis.com
+gcloud services enable sqladmin.googleapis.com
 
-1. Build the Docker image for the Flask application:
-   ```bash
-   docker build -t gcr.io/YOUR_PROJECT_ID/todo-app:latest .
-   ```
-2. Push the Docker image to Google Container Registry (GCR):
-   ```bash
-   docker push gcr.io/YOUR_PROJECT_ID/todo-app:latest
-   ```
+# Create Cluser
+gcloud container clusters create todo-list-cluster --num-nodes=1 --zone=us-central1-a
+gcloud container clusters get-credentials todo-list-cluster --zone=us-central1-a
 
-### Kubernetes Deployment
+# clone repo
+git clone https://github.com/fwSara95h/todo-list-flask.git
+cd todo-list-flask
 
-1. Create the GKE clusters (refer to GCP documentation or setup scripts provided in the k8s directory).
-2. Apply the Kubernetes configurations:
-   ```bash
-   kubectl apply -f k8s/
-   ```
+# Dockerize
+gcloud auth configure-docker
+docker build -t gcr.io/<YOUR_PROJECT_ID>/todo-backend .
+docker push gcr.io/<YOUR_PROJECT_ID>/todo-backend
+
+# ConfigMaps for SQL initialization and Nginx configuration
+kubectl create configmap mysql-init-db-config --from-file=./database/init.sql
+kubectl create configmap nginx-config --from-file=nginx.conf
+kubectl create configmap nginx-html-config --from-file=./frontend/index.html --from-file=./frontend/script.js --from-file=./frontend/style.css
+
+# Deploy the Pod and Expose the Service
+kubectl apply -f ./k8s/todo-app-pod.yaml
+kubectl apply -f ./k8s/todo-app-service.yaml
+```
 
 ## High Availability and Disaster Recovery
 - This project includes configurations for a primary and a disaster recovery (DR) site using GKE.
