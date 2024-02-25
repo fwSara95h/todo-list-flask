@@ -52,6 +52,8 @@ gcloud container clusters get-credentials todo-list-cluster --zone=us-central1-a
 git clone https://github.com/fwSara95h/todo-list-flask.git
 cd todo-list-flask
 
+# REPLACE <YOUR_PROJECT_ID> IN THE YAML FILES AND ALSO IN THE COMMANDS BELOW
+
 # Dockerize
 gcloud auth configure-docker
 docker build -t gcr.io/<YOUR_PROJECT_ID>/todo-backend .
@@ -62,9 +64,9 @@ kubectl create configmap mysql-init-db-config --from-file=./database/init.sql
 kubectl create configmap nginx-config --from-file=nginx.conf
 kubectl create configmap nginx-html-config --from-file=./frontend/index.html --from-file=./frontend/script.js --from-file=./frontend/style.css
 
-# Deploy the Pod and Expose the Service
-kubectl apply -f ./k8s/todo-app-pod.yaml
-kubectl apply -f ./k8s/todo-app-service.yaml
+# Deploy and Expose 
+kubectl apply -f k8s/todo-app-deployment.yaml
+kubectl expose deployment todo-app-deployment --type=LoadBalancer --name=todo-app-service --port=80 --target-port=5000
 ```
 
 ## High Availability and Disaster Recovery
