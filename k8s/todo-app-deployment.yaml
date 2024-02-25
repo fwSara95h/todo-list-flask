@@ -37,3 +37,9 @@ spec:
       - name: mysql-initdb
         configMap:
           name: mysql-init-db-config
+      - name: nginx-config-volume
+        configMap:
+          name: nginx-config
+      - name: nginx-html-volume
+        configMap:
+          name: nginx-html-config
