@@ -10,21 +10,22 @@ This project demonstrates deploying a simple, basic Todo List application using 
 /todo-list-app
 │
 ├── backend
-│ ├── app.py                # Flask application
-│ ├── requirements.txt      # Python dependencies
-│ └── init.sql              # MySQL initialization script
+│ ├── app.py                     # Flask application
+│ ├── requirements.txt           # Python dependencies
+│ └── init.sql                   # MySQL initialization script
 │
 ├── frontend
-│ ├── index.html            # Frontend HTML
-│ ├── script.js             # Frontend JavaScript
-│ └── style.css             # Frontend CSS
+│ ├── index.html                 # Frontend HTML
+│ ├── script.js                  # Frontend JavaScript
+│ └── style.css                  # Frontend CSS
 │
 ├── k8s
-│ ├── todo-app-pod.yaml     # pod with flask+nginx+mysql containers
-│ └── todo-app-service.yaml # Service for flask+nginx+mysql app
+│ ├── todo-app-deployment.yaml  # deploy flask+nginx+mysql containers (option 1)
+│ ├── todo-app-pod.yaml         # pod with flask+nginx+mysql containers (option 2)
+│ └── todo-app-service.yaml     # Service for flask+nginx+mysql app (option 2)
 │
-├── Dockerfile              # Dockerfile for Flask app
-├── nginx.conf              # nginx configurations for reverse proxy
+├── Dockerfile                  # Dockerfile for Flask app
+├── nginx.conf                  # nginx configurations for reverse proxy
 └── README.md
 ```
 
