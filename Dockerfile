@@ -8,7 +8,15 @@ WORKDIR /app
 COPY . /app
 
 # Install any needed packages specified in requirements.txt
-RUN pip install --no-cache-dir -r backend/requirements.txt
+# RUN pip install --no-cache-dir -r backend/requirements.txt
+RUN apt-get update -y &&\
+  apt-get install pkg-config -y &&\
+  apt-get install -y python3-dev build-essential &&\
+  apt-get install -y default-libmysqlclient-dev &&\
+  pip install -U mysqlclient &&\
+  pip install -U flask-mysqldb &&\
+  pip install -U Flask &&\
+  pip install -U PyYAML
 
 # Set environment variables for Flask
 ENV FLASK_APP=backend/app.py
