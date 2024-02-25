@@ -13,6 +13,7 @@ RUN apt-get update -y &&\
   apt-get install pkg-config -y &&\
   apt-get install -y python3-dev build-essential &&\
   apt-get install -y default-libmysqlclient-dev &&\
+  pip install --upgrade pip &&\
   pip install -U mysqlclient &&\
   pip install -U flask-mysqldb &&\
   pip install -U Flask &&\
