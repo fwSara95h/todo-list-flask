@@ -5,7 +5,7 @@ metadata:
 spec:
   containers:
   - name: todo-backend
-    image: gcr.io/ece9016-my-sandbox/todo-backend
+    image: gcr.io/<YOUR_PROJECT_ID>/todo-backend
     ports:
     - containerPort: 5000
   - name: mysql
