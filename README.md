@@ -76,3 +76,12 @@ kubectl expose deployment todo-app-deployment --type=LoadBalancer --name=todo-ap
 - High availability is achieved through multiple replicas and load balancing.
 - For disaster recovery, a secondary GKE cluster can be set up in a different region. Manual or automated failover strategies should be implemented based on the project requirements.
 
+
+----
+
+### OTHER NOTES for debugging etc
+
+mysql client (copy podname after `kubectl get pods`):
+```sh
+kubectl exec -it pod/<POD-NAME> -c mysql --  mysql -u root -p
+```
