@@ -3,9 +3,10 @@ kind: Service
 metadata:
   name: todo-app-svc
 spec:
-  type: LoadBalancer
+  type: NodePort  # Changed from LoadBalancer to NodePort
   ports:
   - port: 80
     targetPort: 80
+    nodePort: 30007  # Optional: specify a nodePort or let Kubernetes assign one
   selector:
     app: todo-app-pod
