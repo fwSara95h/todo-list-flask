@@ -2,6 +2,8 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: todo-app-pod
+  labels:
+    app: todo-app
 spec:
   containers:
   - name: todo-backend
