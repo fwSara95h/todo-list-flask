@@ -72,7 +72,7 @@ kubectl create configmap nginx-html-config --from-file=./frontend/index.html --f
 kubectl apply -f k8s/mysql-pvc.yaml 
 ```
 
-### Create Port and Expose NodePort (Option 1)
+### Create Port and Expose ~~NodePort~~ LoadBalancer (Option 1)
 
 ```sh
 kubectl apply -f k8s/todo-app-pod.yaml
@@ -80,7 +80,7 @@ kubectl apply -f k8s/todo-app-pod.yaml
 kubectl apply -f k8s/todo-app-service.yaml
 ```
 
-Use `kubectl get nodes -o wide` to see external IP of node, and then go to **`<NODE-IP>:30007`**.
+~~Use `kubectl get nodes -o wide` to see external IP of node, and then go to **`<NODE-IP>:30007`**.~~ Use `kubectl get services` to see external IP.
 
 ### Deploy and Expose LoadBalancer (Option 2)
 
