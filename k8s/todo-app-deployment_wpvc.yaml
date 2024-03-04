@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: todo-backend
-        image: gcr.io/ece9016-my-sandbox/todo-backend
+        image: gcr.io/<project-id>/todo-backend
         ports:
         - containerPort: 5000
       - name: mysql
