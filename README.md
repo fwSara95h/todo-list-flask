@@ -67,8 +67,12 @@ kubectl create configmap nginx-html-config --from-file=./frontend/index.html --f
 
 # Deploy and Expose 
 kubectl apply -f k8s/todo-app-deployment.yaml
+# WAIT UNTIL POD IS READY - it might take a minute or so - use `kubectl get pods` to check that all 3 containers are ready
 kubectl expose deployment todo-app-deployment --type=LoadBalancer --name=todo-app-service --port=80 --target-port=5000
 # set target-port=80 for nginx but it often fails to serve the app and just shows the nginx welcome page
+
+# To view external IP (might have to wait a few minutes)
+kubectl get services
 ```
 
 ## High Availability and Disaster Recovery
