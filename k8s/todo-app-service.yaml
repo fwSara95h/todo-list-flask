@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: todo-app-svc
 spec:
-  type: LoadBalancer  # Changed between LoadBalancer and NodePort
+  type: LoadBalancer  # Change between LoadBalancer and NodePort
   ports:
   - port: 80
     targetPort: 80
