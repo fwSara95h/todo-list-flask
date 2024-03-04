@@ -3,7 +3,7 @@ kind: Pod
 metadata:
   name: todo-app-pod
   labels:
-    app: todo-app
+    app: todo-app-pod
 spec:
   containers:
   - name: todo-backend
