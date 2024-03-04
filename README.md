@@ -20,6 +20,7 @@ This project demonstrates deploying a simple, basic Todo List application using 
 │ └── style.css                  # Frontend CSS
 │
 ├── k8s
+│ ├── mysql-pvc.yaml            # claim persistent volume for mysql (both options)
 │ ├── todo-app-deployment.yaml  # deploy flask+nginx+mysql containers (option 1)
 │ ├── todo-app-pod.yaml         # pod with flask+nginx+mysql containers (option 2)
 │ └── todo-app-service.yaml     # Service for flask+nginx+mysql app (option 2)
@@ -65,11 +66,14 @@ kubectl create configmap mysql-init-db-config --from-file=./database/init.sql
 kubectl create configmap nginx-config --from-file=nginx.conf
 kubectl create configmap nginx-html-config --from-file=./frontend/index.html --from-file=./frontend/script.js --from-file=./frontend/style.css
 
+# Claim persistent volume for mysql
+kubectl apply -f k8s/mysql-pvc.yaml 
+
 # Deploy and Expose 
 kubectl apply -f k8s/todo-app-deployment.yaml
 # WAIT UNTIL POD IS READY - it might take a minute or so - use `kubectl get pods` to check that all 3 containers are ready
-kubectl expose deployment todo-app-deployment --type=LoadBalancer --name=todo-app-service --port=80 --target-port=5000
-# set target-port=80 for nginx but it often fails to serve the app and just shows the nginx welcome page
+kubectl expose deployment todo-app-deployment --type=LoadBalancer --name=todo-app-service --port=80 --target-port=80
+# try setting target-port=5000 (to expose the flask container) if it just shows the nginx welcome page
 
 # To view external IP (might have to wait a few minutes)
 kubectl get services
