@@ -80,7 +80,7 @@ kubectl apply -f k8s/todo-app-pod.yaml
 kubectl apply -f k8s/todo-app-service.yaml
 ```
 
-Use `kubectl get nodes -o wide` to see external IP of node, and then go to **NODE-IP:30007**.
+Use `kubectl get nodes -o wide` to see external IP of node, and then go to **`<NODE-IP>:30007`**.
 
 ### Deploy and Expose LoadBalancer (Option 2)
 
