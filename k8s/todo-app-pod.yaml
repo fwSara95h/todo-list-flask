@@ -16,6 +16,8 @@ spec:
     ports:
     - containerPort: 3306
     volumeMounts:
+    - name: mysql-storage
+      mountPath: /var/lib/mysql-data
     - name: mysql-init-volume
       mountPath: /docker-entrypoint-initdb.d
   - name: nginx
@@ -29,6 +31,9 @@ spec:
     - name: nginx-html-volume
       mountPath: /usr/share/nginx/html
   volumes:
+  - name: mysql-storage
+    persistentVolumeClaim:
+      claimName: mysql-pvc
   - name: mysql-init-volume
     configMap:
       name: mysql-init-db-config
