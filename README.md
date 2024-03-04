@@ -21,9 +21,9 @@ This project demonstrates deploying a simple, basic Todo List application using 
 │
 ├── k8s
 │ ├── mysql-pvc.yaml            # claim persistent volume for mysql (both options)
-│ ├── todo-app-deployment.yaml  # deploy flask+nginx+mysql containers (option 1)
-│ ├── todo-app-pod.yaml         # pod with flask+nginx+mysql containers (option 2)
-│ └── todo-app-service.yaml     # Service for flask+nginx+mysql app (option 2)
+│ ├── todo-app-deployment.yaml  # deploy flask+nginx+mysql containers (option 2)
+│ ├── todo-app-pod.yaml         # pod with flask+nginx+mysql containers (option 1)
+│ └── todo-app-service.yaml     # Service for flask+nginx+mysql app (option 1)
 │
 ├── Dockerfile                  # Dockerfile for Flask app
 ├── nginx.conf                  # nginx configurations for reverse proxy
@@ -39,7 +39,9 @@ This project demonstrates deploying a simple, basic Todo List application using 
 
 ## Setup and Deployment
 
-**Don't forget to replace `<YOUR_PROJECT_ID>` in the pod yamls and the shell commands**
+### Setup (before either option)
+
+#### **Don't forget to replace `<YOUR_PROJECT_ID>` in the pod yamls and the shell commands**
 
 ```sh
 # Enable APIs
@@ -68,8 +70,21 @@ kubectl create configmap nginx-html-config --from-file=./frontend/index.html --f
 
 # Claim persistent volume for mysql
 kubectl apply -f k8s/mysql-pvc.yaml 
+```
 
-# Deploy and Expose 
+### Create Port and Expose NodePort (Option 1)
+
+```sh
+kubectl apply -f k8s/todo-app-pod.yaml
+# WAIT UNTIL POD IS READY - it might take a minute or so - use `kubectl get pods` to check that all 3 containers are ready
+kubectl apply -f k8s/todo-app-service.yaml
+```
+
+Use `kubectl get nodes -o wide` to see external IP of node, and then go to **<NODE-IP>:30007**.
+
+### Deploy and Expose LoadBalancer (Option 2)
+
+```sh
 kubectl apply -f k8s/todo-app-deployment.yaml
 # WAIT UNTIL POD IS READY - it might take a minute or so - use `kubectl get pods` to check that all 3 containers are ready
 kubectl expose deployment todo-app-deployment --type=LoadBalancer --name=todo-app-service --port=80 --target-port=80
