@@ -12,6 +12,9 @@ This project demonstrates deploying a simple, basic Todo List application using 
 ├── backend
 │ ├── app.py                     # Flask application
 │ ├── requirements.txt           # Python dependencies
+│ └── db.yaml                    # MySQL connection parameters
+│
+├── database
 │ └── init.sql                   # MySQL initialization script
 │
 ├── frontend
